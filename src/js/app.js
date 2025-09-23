@@ -5,7 +5,7 @@ let btnShowPost;
 let btnCancelPost;
 
 //cuando se carge todo nuestro DOM
-window.addEventListener('load',()=>{
+window.addEventListener('load', async ()=>{
     main = document.querySelector('#main');
     modalPost = document.getElementById('modal-post-section');
     addPost = document.getElementById('btn-upload-post');
@@ -13,6 +13,12 @@ window.addEventListener('load',()=>{
     btnCancelPost = document.getElementById('btn-post-cancel');
     addPost.addEventListener('click', ShowPostModal);
     btnCancelPost.addEventListener('click', closePostModal);
+    if('serviceWorker' in navigator){
+       const response = await navigator.serviceWorker.register('sw.js')
+       if (response) {
+        console.log("service worker registrado");
+       }
+    }
     
 }); 
 
