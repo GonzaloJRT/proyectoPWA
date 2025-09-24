@@ -13,6 +13,7 @@ window.addEventListener('load', async ()=>{
     btnCancelPost = document.getElementById('btn-post-cancel');
     addPost.addEventListener('click', ShowPostModal);
     btnCancelPost.addEventListener('click', closePostModal);
+    
     if('serviceWorker' in navigator){
        const response = await navigator.serviceWorker.register('sw.js')
        if (response) {
