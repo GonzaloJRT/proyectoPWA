@@ -3,6 +3,8 @@ let modalPost;
 let addPost;
 let btnShowPost;
 let btnCancelPost;
+let installPrompt;
+const installButton = document.querySelector('#banner-install');
 
 //cuando se carge todo nuestro DOM
 window.addEventListener('load', async ()=>{
@@ -13,6 +15,7 @@ window.addEventListener('load', async ()=>{
     btnCancelPost = document.getElementById('btn-post-cancel');
     addPost.addEventListener('click', ShowPostModal);
     btnCancelPost.addEventListener('click', closePostModal);
+    
     
     if('serviceWorker' in navigator){
        const response = await navigator.serviceWorker.register('sw.js')
@@ -37,3 +40,23 @@ const closePostModal = () =>{
 main.style.display = 'block';
 modalPost.style.transform = 'translateY(100vh)';
 }
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  installPrompt = event; // guardamos el evento
+  installButton.removeAttribute('hidden'); // mostramos el botón
+});
+
+// Escuchamos el click en el botón, no en installPrompt
+installButton.addEventListener('click', async () => {
+  if (!installPrompt) {
+    return;
+  }
+
+  installPrompt.prompt(); // mostramos el diálogo
+  const resultado = await installPrompt.userChoice;
+  console.log(`Install prompt was: ${resultado.outcome}`);
+
+  installPrompt = null; // reseteamos el evento
+  installButton.setAttribute('hidden', ''); // ocultamos el botón
+});
