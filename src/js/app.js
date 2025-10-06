@@ -43,20 +43,21 @@ modalPost.style.transform = 'translateY(100vh)';
 
 window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault();
-  installPrompt = event; // guardamos el evento
-  installButton.removeAttribute('hidden'); // mostramos el botón
-});
+  installPrompt = event; 
+  installButton.removeAttribute('hidden');
 
-// Escuchamos el click en el botón, no en installPrompt
+});
 installButton.addEventListener('click', async () => {
   if (!installPrompt) {
-    return;
+    return ;
   }
 
-  installPrompt.prompt(); // mostramos el diálogo
+  installPrompt.prompt();
   const resultado = await installPrompt.userChoice;
   console.log(`Install prompt was: ${resultado.outcome}`);
 
-  installPrompt = null; // reseteamos el evento
-  installButton.setAttribute('hidden', ''); // ocultamos el botón
+  installPrompt = null; 
+  installButton.setAttribute('hidden', ''); 
 });
+
+
